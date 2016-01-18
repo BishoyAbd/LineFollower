@@ -13,8 +13,8 @@ char mcu = 'm';
 
 /*
  * Left and Right IR subroutines
- *
- *
+ * 
+ * 
  */
 //left and right sensor
 byte leftIr = 62;
@@ -91,12 +91,12 @@ void setup()
 	// robot.printWeight();
 	// robot.printDigital();
 	// robot.printWeightedValue();
-
+  
 	robot = new Robot(lm, rm, s, 8, mcu);
 	robot->initializeComponents();
 	Robot::THRESHOLD = 600;
 	robot->generateWeight(8);
-
+	
 	robot->setKp(10);
 	robot->setKd(1);
   pinMode(led, OUTPUT);
@@ -115,7 +115,7 @@ void blink(int times){
 
 void loop()
 {
-
+	
 	// Serial.println("----------------------");
 	// robot->printAnalog();
 	// Serial.println("\n--------------------");
@@ -124,7 +124,7 @@ void loop()
 	// robot->printDigital();
 
 
-
+	
 	// delay(750);
 	// robot.pidLineFollow();
 	//analogWrite(lm[0], 150);
@@ -147,22 +147,22 @@ void loop()
 //      robot->updateDigitalRead();
 //    }
 //  }
-
+  
 //	robot->updateWeightedValue();
 //	robot->printWeightedValue();
 
   updateIr();
   robot->updateDigitalRead();
 
-//  if (robot->s_digital_reading[0] == 1 && robot->s_digital_reading[3] == 1){
-//    robot->updateDigitalRead();
-//    while(robot->s_digital_reading[6] != 1){
-////      robot->updateDigitalRead();
-//      robot->run(0, 120, Robot::Forward, Robot::Forward);
-//      delay(1);
+  if (robot->s_digital_reading[0] == 1 && robot->s_digital_reading[3] == 1){
+    robot->updateDigitalRead();
+    while(robot->s_digital_reading[6] != 1){
 //      robot->updateDigitalRead();
-//    }
-//  }
+      robot->run(0, 120, Robot::Forward, Robot::Forward);
+      delay(1);
+      robot->updateDigitalRead();
+    }
+  } 
 //      else if (robot->s_digital_reading[4] == 1 && robot->s_digital_reading[7] == 1){
 //            robot->updateDigitalRead();
 //        while(robot->s_digital_reading[2] != 1){
@@ -173,31 +173,31 @@ void loop()
 //      }
 
 //   robot->updateDigitalRead();
-//   if (robot->s_digital_reading[5] == 1 &&
+//   if (robot->s_digital_reading[5] == 1 && 
 //        robot->s_digital_reading[6] == 0 &&
 //        robot->s_digital_reading[7] == 1){
 //          robot->run(Robot::Nowhere);
-//          delay(500);
+//          delay(500); 
 //          blink(10);
 //        }
 //
 //// Stop condition
 //    else if (robot->s_digital_reading[3] == 0 &&
-//             robot->s_digital_reading[0] == 1 &&
+//             robot->s_digital_reading[0] == 1 && 
 //             robot->s_digital_reading[7] == 1){
 //              robot->run(Robot::Nowhere);
 //              blink(2);
 //             }
 
-//     if ((robot->s_digital_reading[3] == 1 || robot->s_digital_reading[4] == 1 || robot->s_digital_reading[5] == 1) && right_reading == 1){
-////      debugIr();
-//      robot->run(Robot::Nowhere);
-//      blink(9);
-//    }
-//
-//    else {
-//    robot->pdLineFollow();
-//  }
+    else if ((robot->s_digital_reading[3] == 1 || robot->s_digital_reading[4] == 1 || robot->s_digital_reading[5] == 1) && right_reading == 1){
+//      debugIr();
+      robot->run(Robot::Nowhere);
+      blink(9);
+    }
+
+    else {
+    robot->pdLineFollow();
+  }
 
   if (Serial.available() > 0){
     if (Serial.read() == 'p'){
