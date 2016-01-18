@@ -1,3 +1,5 @@
+// Global speed 200
+
 #include "LineFollower.h"
 #include <SoftwareSerial.h>
 #define led 13
